@@ -1,0 +1,12 @@
+﻿################################################################################
+# Este archivo .gitignore ha sido creado automáticamente por Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/ComputerInventory/v16
+/ComputerInventory/ComputerInventory/obj
+/ComputerInventory/ComputerInventory.Android/bin/Debug
+/ComputerInventory/ComputerInventory.Android/obj
+/ComputerInventory.API/bin/Debug/netcoreapp2.1
+/ComputerInventory.API/obj/Debug/netcoreapp2.1
+/ComputerInventory.API/obj
+/ComputerInventory/ComputerInventory/bin/Debug/netstandard2.0
