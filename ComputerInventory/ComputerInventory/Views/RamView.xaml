@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:fontawesome="clr-namespace:FontAwesome"
+             xmlns:viewmodel="clr-namespace:ComputerInventory.ViewModels"
+             xmlns:c="clr-namespace:ComputerInventory.Helpers.Converters"
+             Title="{Binding Title}"
+             mc:Ignorable="d"
+             x:Class="ComputerInventory.Views.RamView">
+    <ContentPage.BindingContext>
+        <viewmodel:RamViewModel></viewmodel:RamViewModel>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <c:CountToBoolConverter x:Key="CountToBoolConverter"></c:CountToBoolConverter>
+            <c:InverseCountToBoolConverter x:Key="InverseCountToBoolConverter"></c:InverseCountToBoolConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <ActivityIndicator Margin="0, 15" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}"></ActivityIndicator>
+            <StackLayout Margin="0, 15" IsVisible="{Binding RamItems.Count, Converter={StaticResource InverseCountToBoolConverter}}">
+                <Label Text="No data to display" HorizontalOptions="CenterAndExpand"></Label>
+            </StackLayout>
+            <Grid IsVisible="{Binding RamItems.Count, Converter={StaticResource CountToBoolConverter}}">
+                <!-- IsVisible="{Binding RamItems.Count, Converter={StaticResource CountToBoolConverter}}"> -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackLayout Orientation="Horizontal">                    
+                    <Button 
+                    Text="All" 
+                    Command="{Binding GetAllRams}"
+                    BackgroundColor="#028B7E" 
+                    TextColor="White">
+                        <Button.CommandParameter>
+                            <x:Int64>0</x:Int64>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button 
+                    Text="Above 8GB"
+                    Command="{Binding GetRamsBySize}"
+                    CommandParameter="8">                        
+                    </Button>
+                </StackLayout>
+                <ListView 
+                    Grid.Row="1"
+                    ItemTemplate="{StaticResource RamListDataTemplate}"
+                    ItemsSource="{Binding RamItems}"
+                    SelectedItem="{Binding RamSelected}"
+                    HasUnevenRows="True"
+                    SeparatorVisibility="None"
+                    CachingStrategy="RecycleElement"
+                    SelectionMode="None">
+                </ListView>
+            </Grid>                        
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

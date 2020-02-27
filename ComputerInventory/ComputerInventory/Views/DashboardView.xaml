@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             xmlns:c="clr-namespace:ComputerInventory.Helpers.Converters"
+             xmlns:fontawesome="clr-namespace:FontAwesome"
+             xmlns:viewmodel="clr-namespace:ComputerInventory.ViewModels"
+             Title="{Binding Title}"
+             mc:Ignorable="d"
+             x:Class="ComputerInventory.Views.DashboardView">
+    <ContentPage.BindingContext>
+        <viewmodel:DashboardViewModel></viewmodel:DashboardViewModel>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <c:CountToBoolConverter x:Key="CountToBoolConverter"></c:CountToBoolConverter>
+            <c:InverseCountToBoolConverter x:Key="InverseCountToBoolConverter"></c:InverseCountToBoolConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="90"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Image Grid.Row="0" Source="header.png" Aspect="AspectFill"></Image>
+                <StackLayout Grid.Row="1" Margin="10, -60, 10, 10">
+                    <Label Text="{Binding Subtitle}" FontSize="Large" TextColor="White"></Label>
+                    <Frame>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{StaticResource DashboardButton}" Text="{x:Static fontawesome:FontAwesomeIcons.Microchip}"></Button>
+                            <Button Style="{StaticResource DashboardButton}" Command="{Binding GoToRamPage}" Grid.Column="1" Grid.Row="0" Text="{x:Static fontawesome:FontAwesomeIcons.Memory}"></Button>
+                            <Button Style="{StaticResource DashboardButton}" Grid.Column="2" Grid.Row="0" Text="{x:Static fontawesome:FontAwesomeIcons.Hdd}"></Button>
+                            <Label Grid.Row="1" Grid.Column="0" Text="CPUs" HorizontalOptions="CenterAndExpand"></Label>
+                            <Label Grid.Row="1" Grid.Column="1" Text="RAMs" HorizontalOptions="CenterAndExpand"></Label>
+                            <Label Grid.Row="1" Grid.Column="2" Text="Drives" HorizontalOptions="CenterAndExpand"></Label>
+                        </Grid>
+                    </Frame>
+                    <ActivityIndicator Margin="0, 15" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}"></ActivityIndicator>
+                    <StackLayout 
+                        Margin="0, 15"
+                        IsVisible="{Binding Items.Count, Converter={StaticResource InverseCountToBoolConverter}}">
+                        <Label Text="No data to display" HorizontalOptions="CenterAndExpand"></Label>
+                    </StackLayout>
+                    <StackLayout 
+                        Margin="0, 15" 
+                        IsVisible="{Binding Items.Count, Converter={StaticResource CountToBoolConverter}}">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Computers" HorizontalOptions="StartAndExpand" VerticalOptions="Center" FontSize="Large"></Label>
+                            <Button 
+                                Command="{Binding GoToCompuPage}"
+                                Text="More" 
+                                HorizontalOptions="End" 
+                                BackgroundColor="Accent" 
+                                TextColor="White" 
+                                VerticalOptions="Center" 
+                                HeightRequest="30" 
+                                Padding="5" 
+                                FontSize="Small">
+                            </Button>
+                        </StackLayout>
+                        <!--Listview here-->
+                        <ListView          
+                            ItemTemplate="{StaticResource ComputerListDataTemplate}"
+                            ItemsSource="{Binding Items}"
+                            HasUnevenRows="True"
+                            SeparatorVisibility="None"
+                            CachingStrategy="RecycleElement"
+                            SelectionMode="None">
+                        </ListView>
+                    </StackLayout>
+                </StackLayout> 
+            </Grid>                        
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

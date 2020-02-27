@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:fontawesome="clr-namespace:FontAwesome"
+             mc:Ignorable="d"
+             x:Class="ComputerInventory.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <OnPlatform x:TypeArguments="x:String" x:Key="FontAwesomeBrands">
+                <On Platform="Android" Value="FontAwesome5Brands.otf#Regular" />
+            </OnPlatform>
+
+            <OnPlatform x:TypeArguments="x:String" x:Key="FontAwesomeSolid">
+                <On Platform="Android" Value="FontAwesome5Solid.otf#Regular" />
+            </OnPlatform>
+
+            <OnPlatform x:TypeArguments="x:String" x:Key="FontAwesomeRegular">
+                <On Platform="Android" Value="FontAwesome5Regular.otf#Regular" />
+            </OnPlatform>
+
+            <Color x:Key="PrimaryColor">#028B7E</Color>
+            <Color x:Key="PrimaryColorDark">#007167</Color>
+            <Color x:Key="PrimaryColorLight">#329E94</Color>
+            <Color x:Key="AccentColor">#d8a80e</Color>
+            <Color x:Key="AccentColorLight">#D8C72E</Color>
+            <Color x:Key="AccentColor2">#BE3C47</Color>
+
+            <Color x:Key="AppBackgroundColor">#FFFFFF</Color>
+            <Color x:Key="TextColor">#616161</Color>
+            <Color x:Key="TextColorDark">#424242</Color>
+            <Color x:Key="TextColorLight">#757575</Color>
+            <Color x:Key="Shadow">#E0E0E0</Color>
+            <Color x:Key="ShadowDark">#BDBDBD</Color>
+            <Color x:Key="ShadowLight">#EEEEEE</Color>
+
+            
+            <Style TargetType="Button" x:Key="DashboardButton">                
+                <Setter Property="HeightRequest" Value="62"></Setter>
+                <Setter Property="WidthRequest" Value="62"></Setter>
+                <Setter Property="CornerRadius" Value="31"></Setter>
+                <Setter Property="FontSize" Value="22"></Setter>
+                <Setter Property="TextColor" Value="{StaticResource AppBackgroundColor}"></Setter>
+                <Setter Property="BackgroundColor" Value="{StaticResource AccentColor}"></Setter>
+                <Setter Property="HorizontalOptions" Value="Center"></Setter>
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
+                <Setter Property="FontFamily" Value="{StaticResource FontAwesomeSolid}"></Setter>
+            </Style>
+
+            <!-- Data Templates-->
+            <DataTemplate x:Key="ComputerListDataTemplate">
+                <ViewCell>
+                    <Grid Padding="0, 10, 0, 10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="64"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Frame 
+                            BackgroundColor="Accent" 
+                            HeightRequest="42"
+                            WidthRequest="42"
+                            CornerRadius="21"
+                            Padding="0"
+                            HorizontalOptions="Center" 
+                            VerticalOptions="Center"                                                  
+                            Grid.Column="0">
+                        <Label 
+                            FontSize="Small"
+                            Text="{x:Static fontawesome:FontAwesomeIcons.Desktop}" 
+                            FontFamily="{StaticResource FontAwesomeSolid}"  
+                            HorizontalOptions="Center" 
+                            VerticalOptions="Center" 
+                            HorizontalTextAlignment="Center" 
+                            VerticalTextAlignment="Center" 
+                            TextColor="White">
+                        </Label>
+                        </Frame>
+                        <Grid Grid.Column="1" RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Text="{Binding Brand}" VerticalOptions="Start" FontSize="16" TextColor="#616161"/>
+                            <Label Grid.Row="1" Grid.Column="0" Text="{Binding Name}" TextColor="#757575"></Label>
+                        </Grid>
+                        <Label FontSize="24" Text="{x:Static fontawesome:FontAwesomeIcons.ChevronRight}" FontFamily="{StaticResource FontAwesomeSolid}" Grid.Column="2" HorizontalOptions="End" VerticalOptions="CenterAndExpand"></Label>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="RamListDataTemplate">
+                <ViewCell>
+                    <Grid Padding="0, 10, 0, 10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="64"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="64"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Frame 
+                            BackgroundColor="Accent" 
+                            HeightRequest="40" 
+                            WidthRequest="40" 
+                            CornerRadius="20" 
+                            HorizontalOptions="Start" 
+                            VerticalOptions="CenterAndExpand" 
+                            Margin="0" 
+                            Padding="0"  
+                            Grid.Column="0">
+                        <Label Text="{x:Static fontawesome:FontAwesomeIcons.Memory}" FontFamily="{StaticResource FontAwesomeSolid}"  HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White"></Label>
+                        </Frame>
+                        <Grid Grid.Column="1" RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.ColumnSpan="4" Text="{Binding Brand}" VerticalOptions="Start" FontSize="16" TextColor="#616161"/>
+                            <Label Grid.Row="1" Grid.Column="0" Text="8 GB -" TextColor="#757575"></Label>
+                            <Label Grid.Row="1" Grid.Column="1" Text="DDR4 -"></Label>
+                            <Label Grid.Row="1" Grid.Column="2" Text="SDRAM -"></Label>
+                            <Label Grid.Row="1" Grid.Column="3" Text="Data"></Label>
+                        </Grid>
+                        <Label FontSize="24" Text="{x:Static fontawesome:FontAwesomeIcons.ChevronRight}" FontFamily="{StaticResource FontAwesomeSolid}" Grid.Column="2" HorizontalOptions="End" VerticalOptions="CenterAndExpand"></Label>
+                        <StackLayout Grid.Row="1" Grid.ColumnSpan="3" BackgroundColor="#EEEEEE" Orientation="Vertical" Margin="0, 5, 0, 0">
+                            <BoxView HeightRequest="1" BackgroundColor="#009688"></BoxView>
+                            <Grid RowSpacing="0" VerticalOptions="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <StackLayout Orientation="Horizontal" Margin="5, 0, 5, 5">
+                                    <Label TextColor="#757575" FontSize="18" VerticalOptions="Center" Text="{x:Static fontawesome:FontAwesomeIcons.Desktop}" FontFamily="{StaticResource FontAwesomeSolid}"></Label>
+                                    <Label TextColor="#757575" Text="DELL INSPIRON - SERIES 5505" VerticalOptions="Center"></Label>
+                                </StackLayout>
+                            </Grid>
+                        </StackLayout>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

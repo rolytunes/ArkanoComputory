@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:fontawesome="clr-namespace:FontAwesome"
+             xmlns:viewmodel="clr-namespace:ComputerInventory.ViewModels"
+             Title="{Binding Title}"
+             mc:Ignorable="d"
+             x:Class="ComputerInventory.Views.RamDetailsView">
+    <ContentPage.BindingContext>
+        <viewmodel:RamDetailsViewModel></viewmodel:RamDetailsViewModel>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="90"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Image Grid.Row="0" Source="header.png" Aspect="AspectFill"></Image>
+                <Grid Grid.Row="1" Margin="10, -60, 10, 10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="{Binding RamItem.Brand}" FontSize="Large" TextColor="White"></Label>
+                    <Frame Grid.Column="1" WidthRequest="36" BackgroundColor="White" CornerRadius="36" HeightRequest="36">
+                        <Label HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="28" Text="{x:Static fontawesome:FontAwesomeIcons.Memory}" FontFamily="{StaticResource FontAwesomeSolid}" TextColor="Accent"></Label>
+                    </Frame>                    
+                    <StackLayout Grid.Row="1" Grid.ColumnSpan="2" Margin="10, 10, 10, 10">
+                        <ActivityIndicator Grid.ColumnSpan="2" Margin="0, 15" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}"></ActivityIndicator>
+                        <Label HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Text="{Binding RamItem.Name}" FontSize="Large"></Label>
+                    </StackLayout>                    
+                    <Frame Grid.Row="2" Grid.ColumnSpan="2">
+                        <StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Model Number" HorizontalOptions="Start" FontAttributes="Bold"></Label>
+                                <Label Text="{Binding RamItem.ModelNumber}" HorizontalOptions="EndAndExpand"></Label>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Type" HorizontalOptions="Start" FontAttributes="Bold"></Label>
+                                <Label Text="{Binding RamItem.Type}" HorizontalOptions="EndAndExpand"></Label>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Speed (MHz)" HorizontalOptions="Start" FontAttributes="Bold"></Label>
+                                <Label Text="{Binding RamItem.Speed}" HorizontalOptions="EndAndExpand"></Label>
+                            </StackLayout>
+                        </StackLayout>                        
+                    </Frame>
+                    <StackLayout Grid.Row="3" Grid.ColumnSpan="2" Margin="0, 15, 0, 15">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Computer" HorizontalOptions="StartAndExpand" VerticalOptions="Center" FontSize="Large"></Label>
+                            <Button 
+                                Text="Info" 
+                                HorizontalOptions="End" 
+                                BackgroundColor="Accent" 
+                                TextColor="White" 
+                                VerticalOptions="Center" 
+                                HeightRequest="30" 
+                                Padding="5" 
+                                FontSize="Small">
+                            </Button>
+                        </StackLayout>
+                        <Frame>
+                            <StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Brand" HorizontalOptions="Start" FontAttributes="Bold"></Label>
+                                    <Label Text="{Binding RamItem.Computer.Brand}" HorizontalOptions="EndAndExpand"></Label>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Name" HorizontalOptions="Start" FontAttributes="Bold"></Label>
+                                    <Label Text="{Binding RamItem.Computer.Name}" HorizontalOptions="EndAndExpand"></Label>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Model Number" HorizontalOptions="Start" FontAttributes="Bold"></Label>
+                                    <Label Text="{Binding RamItem.Computer.ModelNumber}" HorizontalOptions="EndAndExpand"></Label>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                </Grid>                
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
